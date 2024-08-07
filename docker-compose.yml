@@ -22,7 +22,7 @@ services:
     ports:
       - 8080:8080
     environment: # https://docs.openwebui.com/getting-started/env-configuration#default_models
-      - OLLAMA_BASE_URLS=http://127.0.0.1:11434 #comma separated ollama hosts
+      - OLLAMA_BASE_URLS=http://ollama:11434 #comma separated ollama hosts
       - WEBUI_AUTH=False
       - WEBUI_NAME=LBC AI Test
       - WEBUI_URL=http://localhost:8080
