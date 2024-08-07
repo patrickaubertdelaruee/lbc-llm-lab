@@ -6,7 +6,7 @@ services:
     ports:
       - 11434:11434
     container_name: ollama
-    restart: always
+    restart: unless-stopped
     environment:
       - OLLAMA_KEEP_ALIVE=24h
       - OLLAMA_HOST=0.0.0.0
@@ -43,7 +43,7 @@ services:
     ports:
     - 8081:8081
     - 50051:50051
-    restart: on-failure:0
+    restart: unless-stopped
     environment:
       QUERY_DEFAULTS_LIMIT: 25
       AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
