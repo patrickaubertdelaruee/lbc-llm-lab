@@ -10,7 +10,7 @@ services:
     environment:
       - OLLAMA_KEEP_ALIVE=24h
       - OLLAMA_HOST=0.0.0.0
-      - OLLAMA_MODELS: mistral
+      - OLLAMA_MODELS='mistral'
 
   ollama-webui:
     image: ghcr.io/open-webui/open-webui:main
