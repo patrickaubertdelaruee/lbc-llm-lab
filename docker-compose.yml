@@ -40,6 +40,8 @@ services:
     - --scheme
     - http
     image: cr.weaviate.io/semitechnologies/weaviate:1.25.11
+    volumes:
+      - ./PDF:/PDF
     ports:
     - 8081:8081
     - 50051:50051
