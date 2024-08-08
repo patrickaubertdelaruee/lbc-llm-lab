@@ -14,7 +14,7 @@ WORKDIR /app
 # Copy the requirements file and install the dependencies
 COPY Requirements.txt .
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r Requirements.txt
 
 # Copy the notebooks to the container
 COPY . /app
