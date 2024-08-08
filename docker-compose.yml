@@ -30,6 +30,7 @@ services:
     restart: unless-stopped
 
   weaviate:
+    container_name: weaviate
     command:
     - --host
     - 0.0.0.0
@@ -51,6 +52,19 @@ services:
       DEFAULT_VECTORIZER_MODULE: 'text2vec-ollama'
       ENABLE_MODULES: 'text2vec-ollama'
       CLUSTER_HOSTNAME: 'node1'
+
+  jupyter:
+    container_name: jupyter
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8888:8888'
+    restart: unless-stopped
+    volumes:
+      - ./notebooks:/app
   
 volumes:
   weaviate_data:
