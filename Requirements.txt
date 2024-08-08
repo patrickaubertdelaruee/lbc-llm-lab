@@ -12,12 +12,12 @@ datasets
 #jupyter-ai
 jupyter-ai == 2.7.0
 
-weaviate-client = "^4.6.4"
-cohere = "^5.5.7"
-pypdf = "^4.2.0"
-python-dotenv = "^1.0.1"
-sentence-transformers = "^3.0.1"
-jupyterlab = "^4.2.2"
-ipywidgets = "^8.1.3"
-langchain-text-splitters = "^0.2.1"
-ollama = "^0.3.0"
+weaviate-client >= 4.6.4
+cohere >= 5.5.7
+pypdf >= 4.2.0
+python-dotenv >= 1.0.1
+sentence-transformers >= 3.0.1
+jupyterlab >= 4.2.2
+ipywidgets >= 8.1.3
+langchain-text-splitters >= 0.2.1
+ollama >= 0.3.0
