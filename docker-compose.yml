@@ -64,7 +64,7 @@ services:
       - '8888:8888'
     restart: unless-stopped
     volumes:
-      - ./notebooks:/app
+      - ../rag_fca:/app
   
 volumes:
   weaviate_data:
