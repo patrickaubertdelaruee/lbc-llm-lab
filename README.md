@@ -74,7 +74,7 @@ sudo systemctl restart docker
 ## get repositories and start containers
 ```
 cd ~
-git clone https://github.com/patrickaubertdelaruee/ollama_weaviate.git
+git clone https://github.com/patrickaubertdelaruee/lbc-llm-lab.git
 git clone https://github.com/patrickaubertdelaruee/rag_fca
 docker logs ollama 2>&1 | grep V100
 docker logs ollama_weaviate_nvidia-test_1
