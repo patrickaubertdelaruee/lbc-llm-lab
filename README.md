@@ -2,31 +2,29 @@
 
 Preparation material for basic concepts and context:
 
-Prio1 (Must view):
-Intro to LLM: https://www.youtube.com/watch?v=5sLYAQS9sWQ
-CUDA: https://www.youtube.com/watch?v=pPStdjuYzSI
-Vector embedding: https://www.youtube.com/watch?v=dN0lsF2cvm4
-RAG: https://www.youtube.com/watch?v=T-D1OfcDW1M
-Vector embedding (explains what the code does with nomic-text-embed. Relevant until 4:35): https://www.youtube.com/watch?v=jENqvjpkwmw
-
-
-Prio2 (based on interest/background):
-CPU vs GPU (why are we using GPU enabled VMs for this lab?): https://www.youtube.com/watch?v=LfdK-v0SbGI
-container/docker: https://www.youtube.com/watch?v=0qotVMX-J5s
-Open source LLMs (contaxt of llama or mistral): https://www.youtube.com/watch?v=y9k-U9AuDeM
-What makes LLMs expensive: https://www.youtube.com/watch?v=7gMg98Hf3uM
-Git basics: https://www.youtube.com/watch?v=e9lnsKot_SQ
-Vector databases: https://www.youtube.com/watch?v=t9IDoenf-lo
-
+Prio1 (Must view):  
+Intro to LLM: https://www.youtube.com/watch?v=5sLYAQS9sWQ  
+CUDA: https://www.youtube.com/watch?v=pPStdjuYzSI  
+Vector embedding: https://www.youtube.com/watch?v=dN0lsF2cvm4  
+RAG: https://www.youtube.com/watch?v=T-D1OfcDW1M  
+Vector embedding (explains what the code does with nomic-text-embed. Relevant until 4:35): https://www.youtube.com/watch?v=jENqvjpkwmw  
+  
+Prio2 (based on interest/background):  
+CPU vs GPU (why are we using GPU enabled VMs for this lab?): https://www.youtube.com/watch?v=LfdK-v0SbGI  
+container/docker: https://www.youtube.com/watch?v=0qotVMX-J5s  
+Open source LLMs (contaxt of llama or mistral): https://www.youtube.com/watch?v=y9k-U9AuDeM  
+What makes LLMs expensive: https://www.youtube.com/watch?v=7gMg98Hf3uM  
+Git basics: https://www.youtube.com/watch?v=e9lnsKot_SQ  
+Vector databases: https://www.youtube.com/watch?v=t9IDoenf-lo  
 
 # Azure & docker-compose setup for ollama vector embedding lab
 ## set up your vm
-see https://www.youtube.com/watch?v=OCiN37sjXuw
-go to https://portal.azure.com/
-choose a nvidia enabled machine, any NC* will do, e.g. NC12s in Switzerland North
-Choose Spot pricing
-set a username/password or download the ssh key. Don't loose file or u/p
-for os pick nvidia-gpu-optimized-vmi-a10 (Nvidia enabled Ubuntu os)
+see https://www.youtube.com/watch?v=OCiN37sjXuw  
+go to https://portal.azure.com/  
+choose a nvidia enabled machine, any NC* will do, e.g. NC12s in Switzerland North  
+Choose Spot pricing  
+set a username/password or download the ssh key. Don't loose file or u/p  
+for os pick nvidia-gpu-optimized-vmi-a10 (Nvidia enabled Ubuntu os)  
 
 ## connect
 ssh to your vm with key 
@@ -83,13 +81,13 @@ docker logs ollama_weaviate_nvidia-test_1
 ```
 
 ### configure through ui
-ollama web ui: http://ip:8080/
-ollama api: http://ip:11434/
-jupyter notebook http://ip:8888
+ollama web ui: http://ip:8080/  
+ollama api: http://ip:11434/  
+jupyter notebook http://ip:8888  
 
 load the following models in ollama web ui:
-* mistral
-* nomic-embed-text
+* mistral  
+* nomic-embed-text  
 
 put one or more pdf files into rag_fca/PDF/ by scp from your local machine:
 ```
