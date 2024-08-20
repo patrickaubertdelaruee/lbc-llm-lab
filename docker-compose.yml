@@ -11,6 +11,14 @@ services:
       - OLLAMA_KEEP_ALIVE=24h
       - OLLAMA_HOST=0.0.0.0
       - OLLAMA_MODELS='mistral'
+      - OLLAMA_ORIGINS=http://0.0.0.0:11434
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
 
   ollama-webui:
     image: ghcr.io/open-webui/open-webui:main
@@ -19,6 +27,7 @@ services:
       - ollama
     volumes:
       - ./ollama-webui:/app/backend/data
+      - ./ollama-webui-docs:/data/docs
     ports:
       - 8080:8080
     environment: # https://docs.openwebui.com/getting-started/env-configuration#default_models
@@ -35,12 +44,12 @@ services:
     - --host
     - 0.0.0.0
     - --port
-    - '8080'
+    - '8081'
     - --scheme
     - http
     image: cr.weaviate.io/semitechnologies/weaviate:1.25.11
     volumes:
-      - ./PDF:/PDF
+      - ../rag_fca/PDF:/PDF
     ports:
     - 8081:8081
     - 50051:50051
@@ -65,6 +74,17 @@ services:
     restart: unless-stopped
     volumes:
       - ../rag_fca:/app
+
+  nvidia-test:
+    image: nvidia/cuda:12.3.1-base-ubuntu20.04
+    command: nvidia-smi
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
   
 volumes:
   weaviate_data:
