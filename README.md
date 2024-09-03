@@ -1,5 +1,14 @@
 # lbc selfmanaged llm lab
 
+The purpose of this lab is to set up a self hosted llm with hardware acceleration. In the process you will make yourself familiar with the following core concepts and technologies:  
+
+* Azure Portal and Virtual Machines
+* Docker
+* The linux command line and basic tools
+* LLM
+* RAG
+* Python & Jupyter Notebook
+
 ## Preparation material for basic concepts and context:
 
 ### Prio1 (Must view):  
@@ -58,6 +67,12 @@ sudo reboot
 ## verify hw support
 ssh back in and verify
 ```
+cat /proc/driver/nvidia/version
+nvcc -V
+```
+
+## prepare installation of nvidia container toolkit
+```
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
   && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
     sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
@@ -101,8 +116,11 @@ load FullyLocal.ipynb notebook in jupyter and execute
 
 ## Lab excersices
 
+
 1. Time vectorizing and query of a document with the default hardware accelerated setup. Disable hardware acceleration and redo timing. How much better or worse did the lab setup perform?
 
 2. Find out what the machine cost was for the lab (so far). How much would you expect to pay per day in continuous operation?
+
+3. Query the API from the commandline. Hint: you can send requests to web services with curl. The API is well documented.
 
 
