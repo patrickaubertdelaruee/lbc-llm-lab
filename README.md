@@ -1,21 +1,24 @@
 # lbc selfmanaged llm lab
 
-Preparation material for basic concepts and context:
+## Preparation material for basic concepts and context:
 
-Prio1 (Must view):  
+### Prio1 (Must view):  
 Intro to LLM: https://www.youtube.com/watch?v=5sLYAQS9sWQ  
 CUDA: https://www.youtube.com/watch?v=pPStdjuYzSI  
 Vector embedding: https://www.youtube.com/watch?v=dN0lsF2cvm4  
 RAG: https://www.youtube.com/watch?v=T-D1OfcDW1M  
 Vector embedding (explains what the code does with nomic-text-embed. Relevant until 4:35): https://www.youtube.com/watch?v=jENqvjpkwmw  
   
-Prio2 (based on interest/background):  
+### Prio2 (based on interest/background):  
 CPU vs GPU (why are we using GPU enabled VMs for this lab?): https://www.youtube.com/watch?v=LfdK-v0SbGI  
 container/docker: https://www.youtube.com/watch?v=0qotVMX-J5s  
 Open source LLMs (contaxt of llama or mistral): https://www.youtube.com/watch?v=y9k-U9AuDeM  
 What makes LLMs expensive: https://www.youtube.com/watch?v=7gMg98Hf3uM  
 Git basics: https://www.youtube.com/watch?v=e9lnsKot_SQ  
-Vector databases: https://www.youtube.com/watch?v=t9IDoenf-lo  
+Vector databases (e.g. weaviate): https://www.youtube.com/watch?v=t9IDoenf-lo  
+
+## Prerequisite for lab  
+Bring a computer or tablet to the lab with a browser and ssh client (e.g. Linux, MacOS, Windows with WSL, Windows with Putty...)
 
 # Azure & docker-compose setup for ollama vector embedding lab
 ## set up your vm
@@ -95,3 +98,11 @@ scp filename.pdf username@ip:/home/username/rag_fca/PDF/
 ```
 
 load FullyLocal.ipynb notebook in jupyter and execute
+
+## Lab excersices
+
+1. Time vectorizing and query of a document with the default hardware accelerated setup. Disable hardware acceleration and redo timing. How much better or worse did the lab setup perform?
+
+2. Find out what the machine cost was for the lab (so far). How much would you expect to pay per day in continuous operation?
+
+
