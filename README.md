@@ -114,13 +114,15 @@ scp filename.pdf username@ip:/home/username/rag_fca/PDF/
 
 load FullyLocal.ipynb notebook in jupyter and execute
 
-## Lab excersices
+## Lab exercises   
 
 
-1. Time vectorizing and query of a document with the default hardware accelerated setup. Disable hardware acceleration and redo timing. How much better or worse did the lab setup perform?
+1. Time vectorizing and query of a document with the default hardware accelerated setup. Disable hardware acceleration and redo timing. How much better or worse did the lab setup perform?  
 
-2. Find out what the machine cost was for the lab (so far). How much would you expect to pay per day in continuous operation?
+2. Find out what the machine cost was for the lab (so far). How much would you expect to pay per day in continuous operation?  
 
-3. Query the API from the commandline. Hint: you can send requests to web services with curl. The API is well documented.
+3. Query the API from the commandline. Hint: you can send requests to web services with curl. The API is well documented.  
 
+4. Tune the prompt and observe if response quality improves  
 
+5. Gain access to github and submit your answers in a directory in the repo called lab-results.      
