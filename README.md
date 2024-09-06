@@ -128,7 +128,12 @@ Models can be found on https://ollama.com/library :
 * mistral  
 * nomic-embed-text  
 
-put one or more pdf files into rag_fca/PDF/ by scp from your local machine:
+give write access to PDF directory:
+```
+sudo chmod 777 /home/mike/rag_fca/PDF  
+```
+
+put one or more pdf files into rag_fca/PDF/ by scp from your local machine:  
 ```
 scp filename.pdf username@ip:/home/username/rag_fca/PDF/
 ```
