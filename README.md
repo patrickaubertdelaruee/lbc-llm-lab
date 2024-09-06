@@ -33,10 +33,16 @@ Bring a computer or tablet to the lab with a browser and ssh client (e.g. Linux,
 ## set up your vm
 see https://www.youtube.com/watch?v=OCiN37sjXuw  
 go to https://portal.azure.com/  
-choose a nvidia enabled machine, any NC* will do, e.g. NC12s in Switzerland North  
+Create a resource, Virtual Machine  
+for os pick NVIDIA GPU-Optimized VMI with vGPU driver (Nvidia enabled Ubuntu os) v22.08.0 x64 Gen1  
+choose a nvidia enabled machine, any NC* will do, e.g. NC12s in Switzerland North (i.e. NC12s_v3)    
+Choose Security Type Standard, Azure-selected Zone, Eviction = Stop
 Choose Spot pricing  
 set a username/password or download the ssh key. Don't loose file or u/p  
-for os pick nvidia-gpu-optimized-vmi-a10 (Nvidia enabled Ubuntu os)  
+Goto Networking Tab & Create Public IP with default settings
+Hit Review & Create  
+Goto newly created Resource, copy the IP address to access host via ssh and browser. You'll find the IP under networking as public IP address or in the ressource group in a file called *-ip*  
+If it displays some error above like * virtual machine agent status is not ready then restart the VM with the button on top... be patient :)  
 
 ## connect
 ssh to your vm with key 
