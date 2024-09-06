@@ -105,7 +105,8 @@ sudo nvidia-ctk runtime configure --runtime=docker && \
 sudo systemctl restart docker
 ```
 
-## get repositories and start containers
+## get repositories and start containers  
+Start of docker container takes up to 5 mins... be patient :)
 ```
 cd ~
 git clone https://github.com/patrickaubertdelaruee/lbc-llm-lab.git
