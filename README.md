@@ -41,8 +41,13 @@ Choose Spot pricing
 set a username/password or download the ssh key. Don't loose file or u/p  
 Goto Networking Tab & Create Public IP with default settings
 Hit Review & Create  
-Goto newly created Resource, copy the IP address to access host via ssh and browser. You'll find the IP under networking as public IP address or in the ressource group in a file called *-ip*  
+  
+Goto newly created Resource, copy the IP address to access host via ssh and browser. You'll find the IP under networking as public IP address or in the ressource group in a file called *-ip*
+  
 If it displays some error above like * virtual machine agent status is not ready then restart the VM with the button on top... be patient :)  
+  
+Check disksize on newly created VM under Disk  
+If disk < 64GB, expand disk with: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/expand-disks?tabs=ubuntu   
 
 ## connect
 ssh to your vm with key 
@@ -105,6 +110,7 @@ sudo systemctl restart docker
 cd ~
 git clone https://github.com/patrickaubertdelaruee/lbc-llm-lab.git
 git clone https://github.com/patrickaubertdelaruee/rag_fca
+cd lbc-llm-lab/  
 docker-compose up -d  
 docker logs ollama 2>&1 | grep V100
 docker logs ollama_weaviate_nvidia-test_1
