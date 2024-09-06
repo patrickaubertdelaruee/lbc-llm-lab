@@ -62,6 +62,8 @@ lspci | grep -i NVIDIA
 ## install hw drivers
 ```
 sudo apt update && sudo apt install -y ubuntu-drivers-common git
+sudo dpkg --configure -a
+sudo apt install -y ubuntu-drivers-common git  
 sudo ubuntu-drivers install
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
 sudo apt install -y ./cuda-keyring_1.1-1_all.deb
@@ -78,7 +80,7 @@ nvcc -V
 ```
 
 ## install docker-compose
-ubuntu 20.04 only provides docker-compose v1.25.0, we need >= 1.28.0 for hw support in compose so wer work around this:
+ubuntu 20.04 only provides docker-compose v1.25.0, we need >= 1.28.0 for hw support in compose so we work around this:
 ```
 wget https://github.com/docker/compose/releases/download/1.29.0/docker-compose-Linux-x86_64
 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
