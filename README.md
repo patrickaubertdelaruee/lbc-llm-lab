@@ -71,13 +71,6 @@ cat /proc/driver/nvidia/version
 nvcc -V
 ```
 
-## prepare installation of nvidia container toolkit
-```
-curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
-  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
-    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
-    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-```
 ## install docker-compose
 ubuntu 20.04 only provides docker-compose v1.25.0, we need >= 1.28.0 for hw support in compose so wer work around this:
 ```
@@ -85,6 +78,16 @@ wget https://github.com/docker/compose/releases/download/1.29.0/docker-compose-L
 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
+``` 
+
+## prepare installation of nvidia container toolkit
+```
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+sudo apt-get update
+sudo apt-get install -y nvidia-container-toolkit
 sudo nvidia-ctk runtime configure --runtime=docker && \
 sudo systemctl restart docker
 ```
