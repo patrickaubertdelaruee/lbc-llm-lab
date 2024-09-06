@@ -122,7 +122,8 @@ ollama web ui: http://ip:8080/
 ollama api: http://ip:11434/  
 jupyter notebook http://ip:8888  
 
-load the following models in ollama web ui under Head Icon top right/Admin Panel/Settings/Models. Models can be found on https://ollama.com/library :  
+load the following models in ollama web ui under Head Icon top right/Admin Panel/Settings/Models.  
+Models can be found on https://ollama.com/library :  
 * mistral  
 * nomic-embed-text  
 
