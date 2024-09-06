@@ -39,7 +39,8 @@ choose a nvidia enabled machine, any NC* will do, e.g. NC12s in Switzerland Nort
 Choose Security Type Standard, Azure-selected Zone, Eviction = Stop
 Choose Spot pricing  
 set a username/password or download the ssh key. Don't loose file or u/p  
-Goto Networking Tab & Create Public IP with default settings
+Go to Networking Tab & Create Public IP with default settings
+Open up inbound TCP Ports in Networking Tab: 8080 & 8888
 Hit Review & Create  
   
 Goto newly created Resource, copy the IP address to access host via ssh and browser. You'll find the IP under networking as public IP address or in the ressource group in a file called *-ip*
@@ -132,7 +133,10 @@ put one or more pdf files into rag_fca/PDF/ by scp from your local machine:
 scp filename.pdf username@ip:/home/username/rag_fca/PDF/
 ```
 
-load FullyLocal.ipynb notebook in jupyter and execute
+load FullyLocal.ipynb notebook in jupyter and execute by running each segment. Verify success and run next.   
+
+Start by loading one PDF file and verifying successfull embedding through a query before loading more files.
+
 
 ## Lab exercises   
 
