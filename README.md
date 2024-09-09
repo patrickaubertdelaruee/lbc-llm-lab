@@ -12,18 +12,22 @@ The purpose of this lab is to set up a self hosted llm with hardware acceleratio
 ## Preparation material for basic concepts and context:
 
 ### Prio1 (Must view):  
+Terminology and context. From AI/ML/DL/GenAI/LLM... https://www.youtube.com/watch?v=qYNweeDHiyU  => this is the referenced video, totally optional: https://www.youtube.com/watch?v=4RixMPF4xis
 Intro to LLM: https://www.youtube.com/watch?v=5sLYAQS9sWQ  
-CUDA: https://www.youtube.com/watch?v=pPStdjuYzSI  
-Vector embedding: https://www.youtube.com/watch?v=dN0lsF2cvm4  
+CUDA: https://www.youtube.com/watch?v=pPStdjuYzSI  (until 1:43, unless you want a C++ CUDA implementation crash course))
+Vector DB & vector embedding: https://www.youtube.com/watch?v=dN0lsF2cvm4  (We will use Weaviate)
 RAG: https://www.youtube.com/watch?v=T-D1OfcDW1M  
-Vector embedding (explains what the code does with nomic-text-embed. Relevant until 4:35): https://www.youtube.com/watch?v=jENqvjpkwmw  
+Explains what we're doing in the supplied jupyter notebook. Follow along. If there are details that you don't understand (e.g. the code) don't worry, try to get the bigger picture. We will also be using mistral and nomic-text-embed. Relevant until 4:35): https://www.youtube.com/watch?v=jENqvjpkwmw   
+   
+while at it, why not get some understanding of linear regression: https://www.youtube.com/watch?v=qxo8p8PtFeA   
+
   
-### Prio2 (based on interest/background):  
+### Prio2 (based on interest/background, not required for lab):  
 CPU vs GPU (why are we using GPU enabled VMs for this lab?): https://www.youtube.com/watch?v=LfdK-v0SbGI  
 container/docker: https://www.youtube.com/watch?v=0qotVMX-J5s  
 Open source LLMs (contaxt of llama or mistral): https://www.youtube.com/watch?v=y9k-U9AuDeM  
 What makes LLMs expensive: https://www.youtube.com/watch?v=7gMg98Hf3uM  
-Git basics: https://www.youtube.com/watch?v=e9lnsKot_SQ  
+Git in 2minutes: https://www.youtube.com/watch?v=BZr7oJyh4WM or more depth in 4min: https://www.youtube.com/watch?v=e9lnsKot_SQ  
 Vector databases (e.g. weaviate): https://www.youtube.com/watch?v=t9IDoenf-lo  
 
 ## Prerequisite for lab  
@@ -38,6 +42,7 @@ for os pick NVIDIA GPU-Optimized VMI with vGPU driver (Nvidia enabled Ubuntu os)
 choose a nvidia enabled machine, any NC* will do, e.g. NC12s in Switzerland North (i.e. NC12s_v3)    
 Choose Security Type Standard, Azure-selected Zone, Eviction = Stop
 Choose Spot pricing  
+When configuring disk space, ensure you reserve 64GB.
 set a username/password or download the ssh key. Don't loose file or u/p  
 Go to Networking Tab & Create Public IP with default settings
 In Networking Tab: open up inbound TCP Ports 8080 & 8888
