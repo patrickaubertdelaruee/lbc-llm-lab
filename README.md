@@ -45,7 +45,7 @@ Choose Spot pricing
 When configuring disk space, ensure you reserve 64GB.
 set a username/password or download the ssh key. Don't loose file or u/p  
 Go to Networking Tab & Create Public IP with default settings
-In Networking Tab: open up inbound TCP Ports 8080 & 8888
+In Networking Tab: open up inbound TCP Ports 8080, 11434 & 8888
 Hit Review & Create  
   
 Goto newly created Resource, copy the IP address to access host via ssh and browser. You'll find the IP under networking as public IP address or in the ressource group in a file called *-ip*
