@@ -40,7 +40,7 @@ Choose Security Type Standard, Azure-selected Zone, Eviction = Stop
 Choose Spot pricing  
 set a username/password or download the ssh key. Don't loose file or u/p  
 Go to Networking Tab & Create Public IP with default settings
-Open up inbound TCP Ports in Networking Tab: 8080 & 8888
+In Networking Tab: open up inbound TCP Ports 8080 & 8888
 Hit Review & Create  
   
 Goto newly created Resource, copy the IP address to access host via ssh and browser. You'll find the IP under networking as public IP address or in the ressource group in a file called *-ip*
@@ -130,17 +130,22 @@ Models can be found on https://ollama.com/library :
 
 give write access to PDF directory:
 ```
-sudo chmod 777 /home/mike/rag_fca/PDF  
+sudo chmod 777 ~/rag_fca/PDF  
 ```
 
-put one or more pdf files into rag_fca/PDF/ by scp from your local machine:  
+on your vm: download, unip and put one or more pdf files into rag_fca/PDF/ by scp from your local machine.
+Password is supplied during the workshop   
 ```
-scp filename.pdf username@ip:/home/username/rag_fca/PDF/
+mkdir ~/files
+wget -O ~/files/files.zip https://drive.usercontent.google.com/download\?id\=1-FzpTEk4hbhfJlbNq3dogqygWQlIqniJ\&export\=download\&authuser\=1\&confirm\=t\&uuid\=cd9d42bb-2c3e-493e-9647-d04fb2047f33\&at\=AO7h07exuyQMTew243UlnbqKePsk%3A1725883485592
+cd ~/files && unzip files.zip
+cp FILENAME.pdf ~/rag_fca/PDF/ # replace FILENAME.pdf with an actual filenam
 ```
 
-load FullyLocal.ipynb notebook in jupyter and execute by running each segment. Verify success and run next.   
+load FullyLocal.ipynb notebook in jupyter and execute by running each segment. Verify success and run next. The last command step of the script executes the prompt and outputs the response.   
+Congratulations, you've now set up a self hosted open llm with RAG
 
-Start by loading one PDF file and verifying successfull embedding through a query before loading more files.
+Hint: Start by loading one PDF file and verifying successfull embedding through a query before loading more files. These operations take time and you will only know once finished loading if the operation was successfull ;)
 
 
 ## Lab exercises   
@@ -154,4 +159,3 @@ Start by loading one PDF file and verifying successfull embedding through a quer
 
 4. Tune the prompt and observe if response quality improves  
 
-5. Gain access to github and submit your answers in a directory in the repo called lab-results.      
