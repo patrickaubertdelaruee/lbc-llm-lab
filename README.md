@@ -37,40 +37,42 @@ Bring a computer or tablet to the lab with a browser and ssh client (e.g. Linux,
 ## set up your vm
 see https://www.youtube.com/watch?v=OCiN37sjXuw  
 go to https://portal.azure.com/  
-Create a resource, Virtual Machine  
-for os pick NVIDIA GPU-Optimized VMI with vGPU driver (Nvidia enabled Ubuntu os) v22.08.0 x64 Gen1  
+Create a resource, Virtual Machine with default values but enter or change the following:   
+select the ressource group: rg-miksc-001   
+give the vm a name to make it easily identify in a shared ressource group   
+Choose Security Type Standard, Azure-selected Zone, Eviction = Stop   
+for image  pick NVIDIA GPU-Optimized VMI with vGPU driver (Nvidia enabled Ubuntu os) v22.08.0 x64 Gen1  
 choose a nvidia enabled machine, any NC* will do, e.g. NC12s in Switzerland North (i.e. NC12s_v3)    
-Choose Security Type Standard, Azure-selected Zone, Eviction = Stop
-Choose Spot pricing  
-When configuring disk space, ensure you reserve 64GB.
-set a username/password or download the ssh key. Don't loose file or u/p  
-Go to Networking Tab & Create Public IP with default settings
-In Networking Tab: open up inbound TCP Ports 8080, 11434 & 8888  
-Hit Review & Create  
-  
-Goto newly created Resource, copy the IP address to access host via ssh and browser. You'll find the IP under networking as public IP address or in the ressource group in a file called *-ip*
-  
+Choose Spot pricing   
+set a username/password or download the ssh key. Don't loose file or u/p   
+don't create yet, go to next step: Storage   
+When configuring disk space, ensure you reserve 64GB.   
+Now go to create ressource, confirm and wait until the vm has been made available. THis may take a few minutes   
 If it displays some error above like * virtual machine agent status is not ready then restart the VM with the button on top... be patient :)  
+Go to your new ressource. In the left hand navigation to networking->Network Settings and note down your public ip    
+Create two new inbound port rules with default values: enter TCP Port 8080, TCP port 11434 and TCP port 8888    
   
-Check disksize on newly created VM under Disk  
-If disk < 64GB, expand disk with: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/expand-disks?tabs=ubuntu   
+  
 
 ## connect
 ssh to your vm with key 
 ```
-ssh -i yourkey.pem username@ip
+ssh -i yourkey.pem username@public_ip
 ```	
 or password
 ```
-ssh -i yourkey.pem username@ip
+ssh username@public_ip
 ```	
+if asked if you want to connect because the fingerprint is not known, confirm with yes   
 
 ## verify your vm
 ```
 lspci | grep -i NVIDIA
+df -h 
 ```
+you should see atleast one NVIDIA device and df should state that mountpoint / has more than 50GB available
 
-## install hw drivers
+## install hw drivers. Some commands are just for verification of state and may not trigger an action. Just watch for errors. We will reboot to load the driver when done, this will disconnect the ssh session   
 ```
 sudo apt update && sudo apt install -y ubuntu-drivers-common git
 sudo dpkg --configure -a
@@ -84,14 +86,13 @@ sudo reboot
 ```
 
 ## verify hw support
-ssh back in and verify
+The reboot will take a minute or two, then ssh back in because of the disconnect (see above) and verify hw support. You should see NVIDIA kernel module mentioned   
 ```
 cat /proc/driver/nvidia/version
-nvcc -V
 ```
 
 ## install docker-compose
-ubuntu 20.04 only provides docker-compose v1.25.0, we need >= 1.28.0 for hw support in compose so we work around this:
+ubuntu 20.04 only provides docker-compose v1.25.0, we need >= 1.28.0 for hw support in compose so we work around this. The last command should state that version 1.29.0 is installed   
 ```
 wget https://github.com/docker/compose/releases/download/1.29.0/docker-compose-Linux-x86_64
 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
@@ -99,7 +100,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ``` 
 
-## prepare installation of nvidia container toolkit
+## installation of nvidia container toolkit. Ignore errors regarding keys and repository updates   
 ```
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
   && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
@@ -109,10 +110,16 @@ sudo apt-get update
 sudo apt-get install -y nvidia-container-toolkit
 sudo nvidia-ctk runtime configure --runtime=docker && \
 sudo systemctl restart docker
+nvcc -V
 ```
 
-## get repositories and start containers  
-Start of docker container takes up to 5 mins... be patient :)
+## get repositories and start all containers. This takes a few minutes. Ignore any warnings in red,. we will verify that the containers are running.   
+Verification:   
+Tesla V100 entries are shown   
+Weaviate is Serving on port 8081   
+Application startup complete
+Jupyter Server 2.14.2 is running at
+
 ```
 cd ~
 git clone https://github.com/patrickaubertdelaruee/lbc-llm-lab.git
@@ -120,18 +127,20 @@ git clone https://github.com/patrickaubertdelaruee/rag_fca
 cd lbc-llm-lab/  
 docker-compose up -d  
 docker logs ollama 2>&1 | grep V100
-docker logs ollama_weaviate_nvidia-test_1
+docker logs weaviate 2>&1 | grep 'Serving weaviate'
+docker logs ollama-webui 2>&1 | grep 'Application startup complete.'
+docker logs jupyter 2>&1 | grep -A 2 'Jupyter Server 2.14.2 is running at'
 ```
 
-### configure through ui
-ollama web ui: http://ip:8080/  
-ollama api: http://ip:11434/  
-jupyter notebook http://ip:8888  
+### load all llm models we will use in this lab   
 
-load the following models in ollama web ui under Head Icon top right/Admin Panel/Settings/Models.  
-Models can be found on https://ollama.com/library :  
-* mistral  
-* nomic-embed-text  
+docker exec -it ollama ollama pull mistral
+docker exec -it ollama ollama run nomic-embed-text
+
+### verify you can access the UI & api
+ollama web ui: http://public_ip:8080/  
+ollama api: http://public_ip:11434/  
+jupyter notebook http://public_ip:8888  
 
 give write access to PDF directory:
 ```
@@ -144,9 +153,11 @@ Password is supplied during the workshop
 mkdir ~/files
 wget -O ~/files/files.zip https://drive.usercontent.google.com/download\?id\=1-FzpTEk4hbhfJlbNq3dogqygWQlIqniJ\&export\=download\&authuser\=1\&confirm\=t\&uuid\=cd9d42bb-2c3e-493e-9647-d04fb2047f33\&at\=AO7h07exuyQMTew243UlnbqKePsk%3A1725883485592
 cd ~/files && unzip files.zip
-cp FILENAME.pdf ~/rag_fca/PDF/ # replace FILENAME.pdf with an actual filenam
+cp ~/files/FILENAME.pdf ~/rag_fca/PDF/ # replace FILENAME.pdf with an actual filenam
 ```
 
+# let's do some RAG and test   
+go to your jupyter web ui   
 load FullyLocal.ipynb notebook in jupyter and execute by running each segment. Verify success and run next. The last command step of the script executes the prompt and outputs the response.   
 Congratulations, you've now set up a self hosted open llm with RAG
 
@@ -164,3 +175,8 @@ Hint: Start by loading one PDF file and verifying successfull embedding through 
 
 4. Tune the prompt and observe if response quality improves  
 
+
+## common mistakes and fixes
+
+Check disksize on newly created VM under Disk  
+If disk < 64GB, expand disk with: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/expand-disks?tabs=ubuntu   
