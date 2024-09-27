@@ -134,8 +134,10 @@ docker logs jupyter 2>&1 | grep -A 2 'Jupyter Server 2.14.2 is running at'
 
 ### load all llm models we will use in this lab   
 
+```
 docker exec -it ollama ollama pull mistral
 docker exec -it ollama ollama run nomic-embed-text
+```
 
 ### verify you can access the UI & api
 ollama web ui: http://public_ip:8080/  
